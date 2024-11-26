@@ -11,13 +11,13 @@
 - Biometric-based account verification and recovery.
 - Username-based wallet identification for easy recognition.
 
-* Wallet Management:
+- **Wallet Management**:
 
-- Wallet creation and encryption.
-- Unlock wallets with biometrics, session keys, or 6-digit passwords.
-- Secure recovery with seed phrases or email OTPs.
+ Wallet creation and encryption.
+ Unlock wallets with biometrics, session keys, or 6-digit passwords.
+ Secure recovery with seed phrases or email OTPs.
 
-* Transaction Processing:
+- **Transaction Processing**:
 
 - Approve transaction using biometrics or 4-digit PIN.
 - Save beneficiaries for faster transactions.
@@ -104,16 +104,16 @@ pip install -r requirements.txt
 
     Replace placeholders with your actual credentials.
 
-Apply database migrations:
+### Apply database migrations:
 
 alembic upgrade head  
 
-Start the server:
+### Start the server:
 
     uvicorn app.main:app --reload  
 
-Usage
-API Endpoints
+## Usage
+### API Endpoints
 
     Authentication:
         POST /auth/signup: Register a new user.
