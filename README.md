@@ -13,9 +13,9 @@
 
 - **Wallet Management**:
 
-- Wallet creation and encryption.
-- Unlock wallets with biometrics, session keys, or 6-digit passwords.
-- Secure recovery with seed phrases or email OTPs.
+ Wallet creation and encryption.
+ Unlock wallets with biometrics, session keys, or 6-digit passwords.
+ Secure recovery with seed phrases or email OTPs.
 
 - **Transaction Processing**:
 
