@@ -1,0 +1,62 @@
+# Python specific
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.env
+
+# Virtual environment
+venv/
+env/
+
+# macOS specific
+.DS_Store
+
+# IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Database specific
+*.sqlite3
+*.db
+
+# Environment files
+.env
+.env.*
+
+# Cache and build directories
+*.egg-info/
+dist/
+build/
+*.egg
+pip-wheel-metadata/
+
+# Docker specific
+*.pid
+docker-compose.override.yml
+
+# Tests
+.coverage
+htmlcov/
+.cache/
+pytest_cache/
+
+# Node.js (in case of frontend or Node modules)
+node_modules/
+
+# Alembic migrations
+migrations/
+
+# Backup files
+*~
+*.bak
+*.tmp
+
+# Redis dumps
+dump.rdb
