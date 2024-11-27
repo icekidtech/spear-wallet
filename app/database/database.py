@@ -9,10 +9,10 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-# SQLAlchemy engine for async operations
+# Create an async engine
 engine = create_async_engine(DATABASE_URL, echo=True)
 
-# Session maker for database sessions
+# Create a session factory
 async_session = sessionmaker(
     bind=engine, class_=AsyncSession, expire_on_commit=False
 )
@@ -20,12 +20,12 @@ async_session = sessionmaker(
 # Base class for models
 Base = declarative_base()
 
-# Dependency to get the session
+# Dependency for getting the session
 async def get_db():
     async with async_session() as session:
         yield session
 
-# Function to connect and disconnect the database
+# Connect and disconnect database
 async def connect():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
