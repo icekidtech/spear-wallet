@@ -1,0 +1,21 @@
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+alembic
+asyncpg
+redis
+celery
+bcrypt
+cryptography
+python-jose
+pyotp
+requests
+python-dotenv
+solana
+magic-wormhole
+
+# Optional tools for linting and formatting
+black
+flake8
+isort
