@@ -32,3 +32,5 @@ async def connect():
 
 async def disconnect():
     await engine.dispose()
+
+print(f"DATABASE_URL: {DATABASE_URL}")
