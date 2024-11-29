@@ -11,11 +11,11 @@ async def create_user(user:UserCreate) -> UserResponse:
     # Create new user and store it in the databse
     db_user = User(username=user.username, email=user.email, password=hashed_password)
     
-    #Save the user into the database (assuming SQLAlchemy or similar ORM)\
-        await database.execute(User.insert().values(db_user))
+    #Save the user into the database (assuming SQLAlchemy or similar ORM)
+    await database.execute(User.insert().values(db_user))
         
         # Return the response schema
-        return UserResponse(username=db_user.username, email=db_user.email)
+    return UserResponse(username=db_user.username, email=db_user.email)
     
 # Function to log a user in
 async def login_user(user: UserLogin) -> UserResponse:
