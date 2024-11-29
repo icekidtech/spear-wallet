@@ -3,11 +3,18 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
 from dotenv import load_dotenv
+import sqlalchemy
+from app.models.user import Base
 
 # Load environment variables
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+
+# Create tables in the database(you only need to run this once)
+def create_tables():
+    engine = sqlalchemy.create_engine(DATABASE_URL)
+    Base.metadata.create_all(bind=engine)
 
 # Create an async engine
 engine = create_async_engine(DATABASE_URL, echo=True)

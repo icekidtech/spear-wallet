@@ -7,7 +7,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = 'users'
     
-    id = column(Integer, primary_key=True, index=True)
-    username = Column(string, unique=True, index=True)
-    email = column(String, unique=True, index=True)
-    password = column(string) #Store encrypted password here
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    password = Column(String) #Store encrypted password here

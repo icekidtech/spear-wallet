@@ -1,3 +1,4 @@
+from sqlalchemy.future import select
 from app.database import database
 from app.schemas.user import UserCreate, UserResponse
 from app.models import User #Assuming you have an ORM mode for User
@@ -10,6 +11,17 @@ async def create_user(user:UserCreate) -> UserResponse:
     
     # Create new user and store it in the databse
     db_user = User(username=user.username, email=user.email, password=hashed_password)
+    
+    # Insert the user into the database
+    query = User.__table__.insert().values(username=user.name, email=user.email, password=hashed_password)
+    await database.execute(query)
+    
+    return db_user
+
+async def get_user_by_email(email: str):
+    query = select(User),filter(User.email == email)
+    result = await database.fetch_one(query)
+    return result
     
     #Save the user into the database (assuming SQLAlchemy or similar ORM)
     await database.execute(User.insert().values(db_user))

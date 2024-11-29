@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.database import database
+from .database import database, create_tables
 from app.routes.routes import router  # Import the router
 
 app = FastAPI()
@@ -9,6 +9,7 @@ app.include_router(router, prefix="/api/v1")  # Include the router with a prefix
 @app.on_event("startup")
 async def startup():
     await database.connect()
+    create_tables() #Create tables if they don't exist
 
 @app.on_event("shutdown")
 async def shutdown():
