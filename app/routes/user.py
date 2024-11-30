@@ -1,21 +1,32 @@
-from fastapi import APIRouter, HTTPException
-from app.schemas.user import UserCreate, UserLogin, UserResponse
-from app.services.user_service import create_user, login_user
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
+from app.schemas.user import UserCreate, UserResponse
+from app.models.user import User
+from app.database.database import SessionLocal
 
 router = APIRouter()
 
-@router.post("/register", response_model=UserResponse)
-async def register_user(user: UserCreate):
+# Dependency to get a database session
+def get_db():
+    db = SessionLocal()
     try:
-        new_user = await create_user(user)
-        return new_user
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        yield db
+    finally:
+        db.close()
+
+@router.post("/users", response_model=UserResponse)
+def create_user(user: UserCreate, db: SessionLocal = Depends(get_db)): # type: ignore
+    # Check if the user already exists
+    db_user = db.query(User).filter(User.email == user.email).first()
+    if db_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
     
-@router.post("/login", response_model=UserResponse)
-async def login_user_endpoint(user: UserLogin):
-    try:
-        user_response = await login_user(user)
-        return user_response
-    except Exception as e:
-        raise HTTPException(status_code=400, detail="Invalid credentials")
+    new_user = User(
+        username=user.username,
+        email=user.email,
+        hashed_password=user.password #Replaced with hashed password later
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user

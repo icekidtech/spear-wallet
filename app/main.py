@@ -1,18 +1,23 @@
 from fastapi import FastAPI
-from .database import database, create_tables
-from app.routes.routes import router  # Import the router
+from app.database import database, create_tables
+from app.routes.user import router as user_router
 
 app = FastAPI()
 
-app.include_router(router, prefix="/api/v1")  # Include the router with a prefix
+app.include_router(user_router, prefix="/users", tags=["Users"])  # Include the router with a prefix
 
 @app.on_event("startup")
 async def startup():
+    # Connect to the databse
     await database.connect()
-    create_tables() #Create tables if they don't exist
+    
+    # Create tables
+    create_tables()
+    print("Database tables created successfully.")
 
 @app.on_event("shutdown")
 async def shutdown():
+    # Disconnect from the database
     await database.disconnect()
 
 @app.get("/")

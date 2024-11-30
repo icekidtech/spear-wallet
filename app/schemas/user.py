@@ -8,13 +8,10 @@ class UserCreate(BaseModel):
     
 #Schema for user response data
 class UserResponse(BaseModel):
+    id: int
     username: str
     email: EmailStr
     
     class config:
         orm_mode = True #This allows Pydantic to work with ORM models (e.g SQLAlchemy)
         
-#Schema for user login request data
-class UserLogin(BaseModel):
-    email: EmailStr
-    password: str
