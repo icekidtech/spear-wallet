@@ -1,2 +1,2 @@
 #app/database/__init__.py
-from .database import database, create_tables, engine, Base
+from .db_config import database, create_tables

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from app.database.database import Base
+from app.database.db_config import Base
 
 Base = declarative_base()
 
