@@ -1,0 +1,25 @@
+# Node.js modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache
+.cache/
+.vscode/
+.DS_Store
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Miscellaneous
+*.swp
