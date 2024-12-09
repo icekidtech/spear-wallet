@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import { sendEmail } from '../utils/emailer.js';
 
-const userDatabase = {}; // Temporary storage for demo. Replace with  a real database.
+const userDatabase = {}; // Temporary storage for demo. Replace with a real database.
 const otpStorage = {}; // Temporary OTP storage.
 
 export const signup = async (req, res) => {
@@ -12,15 +12,15 @@ export const signup = async (req, res) => {
     }
 
     // Generate OTP
-     const otp = crypto.randomInt(100000, 999999).toString();
-     otpStorage[email] = otp;
+    const otp = crypto.randomInt(100000, 999999).toString();
+    otpStorage[email] = otp;
 
-     try {
+    try {
         await sendEmail(email, 'Your OTP', `Your OTP is: ${otp}`);
-        return res.status(200).json({ message: 'OTP sent to your email '});
-     }catch (error) {
-        return res.status(500).json({ message: 'Failed to send OTP '});
-     }
+        return res.status(200).json({ message: 'OTP sent to your email' });
+    } catch (error) {
+        return res.status(500).json({ message: 'Failed to send OTP' });
+    }
 };
 
 export const verifyOtp = (req, res) => {
@@ -31,10 +31,10 @@ export const verifyOtp = (req, res) => {
     }
 
     if (otpStorage[email] === otp) {
-        delete otpStorage[email]; //Clear OTP once used.
-        userDatabase[email] = { email }; // Save user to "database"  
-        return res.status(200).json({ message: 'Signup successful' }); 
-        }
+        delete otpStorage[email]; // Clear OTP once used.
+        userDatabase[email] = { email }; // Save user to "database"
+        return res.status(200).json({ message: 'Signup successful' });
+    }
 
-        return res.status(401).json({ message: 'Invalid OTP' });
+    return res.status(401).json({ message: 'Invalid OTP' });
 };
