@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import passport from "passport";
 import bodyParser from 'body-parser';
+import db from './src/config/database.js'; // Import your database connection
 import authRoutes from "./src/routes/authRoutes.js";
 import routes from './src/routes/index.js'; // Renamed router to routes
 import { connectDB } from './src/config/db.js';
