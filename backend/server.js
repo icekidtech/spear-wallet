@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 import passport from "passport";
-import bodyParser from 'body-parser';
 import db from './src/config/database.js'; // Import your database connection
 import authRoutes from "./src/routes/authRoutes.js";
 import routes from './src/routes/index.js'; // Renamed router to routes
@@ -16,14 +15,14 @@ const PORT = process.env.PORT || 3000;
 app.use('/api/auth', authRoutes);
 
 // Middleware to parse JSON and URL-encoded data
-app.use(express.json());
+app.use(express.json()); // Express already has built-in JSON parsing
 app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
 
 // API Routes
 app.get("/", (req, res) => {
     res.send("Welcome to Spear Wallet");
-  });
+});
   
 app.use("/api", routes); // Now using the correctly imported routes
 app.use("/api/auth", authRoutes);
