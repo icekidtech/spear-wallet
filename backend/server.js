@@ -10,6 +10,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Routes
+app.use('/api/auth', authRoutes);
+
 // Middleware
 app.use(express.json());
 app.use(passport.initialize());
