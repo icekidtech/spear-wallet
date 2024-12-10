@@ -37,3 +37,9 @@ app.listen(PORT, async () => {
     await connectDB();
     console.log(`Server running at http://localhost:${PORT}`);
 });
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
