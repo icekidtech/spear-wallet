@@ -5,6 +5,7 @@ const userDatabase = {}; // Temporary storage for demo. Replace with a real data
 const otpStorage = {}; // Temporary OTP storage.
 
 export const signup = async (req, res) => {
+    console.log("Request Body:", req.body); // Debugging log
     const { email } = req.body;
 
     if (!email) {

@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import passport from "passport";
-import db from './src/config/database.js'; // Import your database connection
+import db from './src/config/database.js';
 import authRoutes from "./src/routes/authRoutes.js";
 import routes from './src/routes/index.js'; // Renamed router to routes
 import { connectDB } from './src/config/db.js';
@@ -11,35 +11,25 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Routes
-app.use('/api/auth', authRoutes);
-
 // Middleware to parse JSON and URL-encoded data
-app.use(express.json()); // Express already has built-in JSON parsing
+app.use(express.json()); // Parse incoming JSON
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(passport.initialize());
-app.use(express.urlencoded({ extended: true }));
 
-// API Routes
+// Routes
 app.get("/", (req, res) => {
-    res.send("Welcome to Spear Wallet");
+  res.send("Welcome to Spear Wallet");
 });
-  
-app.use("/api", routes); // Now using the correctly imported routes
-app.use("/api/auth", authRoutes);
+app.use("/api", routes); 
+app.use("/api/auth", authRoutes); // Define auth routes
 
-// Connect to the database
+// Database connection
 db.authenticate()
   .then(() => console.log('Database connected successfully.'))
   .catch((err) => console.error('Database connection error:', err));
 
 // Start the server
 app.listen(PORT, async () => {
-    await connectDB();
-    console.log(`Server running at http://localhost:${PORT}`);
-});
-
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+  await connectDB();
+  console.log(`Server running at http://localhost:${PORT}`);
 });
