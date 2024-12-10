@@ -17,7 +17,7 @@ export const sendOtpEmail = (email, otp) => {
 
   client.send({
     text: `Your OTP code is ${otp}`,
-    from: 'Brink Gaming infobrinkgaming@gmail.com',
+    from: 'Brink Gaming demomailtrap.com',
     to: email,
     subject: 'Your OTP Code',
   }, (err, message) => {
