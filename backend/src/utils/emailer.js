@@ -12,19 +12,21 @@ export const sendOtpEmail = (email, otp) => {
     password: process.env.SMTP_PASS,
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
-    ssl: false, // Set to true if using secure connection
+    ssl: false, // Set to true if using a secure connection (e.g., with Mailtrap)
   });
 
-  client.send({
+  const message = {
     text: `Your OTP code is ${otp}`,
-    from: 'Brink Gaming demomailtrap.com',
-    to: email,
+    from: process.env.SMTP_USER, // Use the sender's email address
+    to: email, // The recipient's email
     subject: 'Your OTP Code',
-  }, (err, message) => {
+  };
+
+  client.send(message, (err, res) => {
     if (err) {
       console.error('Error sending OTP:', err);
     } else {
-      console.log('OTP sent successfully:', message);
+      console.log('OTP sent successfully:', res);
     }
   });
 };
